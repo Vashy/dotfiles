@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+git -C "$DRIVE"/Obsidian pull
+git -C "$DRIVE"/Obsidian add .
+git -C "$DRIVE"/Obsidian commit -m "update"
+git -C "$DRIVE"/Obsidian push

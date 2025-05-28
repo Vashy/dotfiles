@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -o errexit -o nounset -o pipefail -o errtrace
+
+JAVA_PATH="/usr/lib/jvm/open-jdk-$1/bin/java"
+
+sudo update-alternatives --set java $JAVA_PATH
+
+echo "  source ~/.zshrc"
