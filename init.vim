@@ -71,7 +71,7 @@ nnoremap <leader>e <cmd>Telescope oldfiles<cr>
 """"""""
 
 " \p pastes copied text into _ (without overriding paste buffer)
-xnoremap <leader>p "_dP
+" xnoremap <leader>p "_dP
 
 nnoremap <leader>a ggVG
 
@@ -80,6 +80,12 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
+
+" Copy and paste
+vnoremap <leader>c "+y
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+
 nnoremap n nzz
 nnoremap N Nzz
 
