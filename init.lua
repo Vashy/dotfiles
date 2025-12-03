@@ -34,8 +34,23 @@ Plug 'vim-airline/vim-airline'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+
+Plug 'nvim-telescope/telescope.nvim'
+
 Plug 'junegunn/goyo.vim'
+Plug 'folke/neoconf.nvim'
+Plug 'neovim/nvim-lspconfig'
+"Plug 'nvim-java/nvim-java'
+Plug 'nvim-java/lua-async-await'
+Plug 'nvim-java/nvim-java-refactor'
+Plug 'nvim-java/nvim-java-core'
+Plug 'nvim-java/nvim-java-test'
+Plug 'nvim-java/nvim-java-dap'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'mfussenegger/nvim-dap'
+Plug 'JavaHello/spring-boot.nvim'
+"Plug 'mfussenegger/nvim-jdtls'
+Plug 'mason-org/mason.nvim'
 
 call plug#end()
 ]]
@@ -104,6 +119,25 @@ require('telescope').setup({
         path_display = { "truncate" }, -- keep filenames readable
     }
 })
+
+---------
+-- LSP --
+---------
+
+--require("neoconf").setup({
+  -- override any of the default settings here
+  --debug = true,
+--})
+
+--require('java').setup()
+
+-- vim.lsp.enable('jdtls')
+
+require('lspconfig').jdtls.setup({
+  --  cmd = { "/path/to/jdt-language-server/bin/jdtls" }
+})
+
+vim.diagnostic.config({ virtual_text = true, signs = true })
 
 ----------
 -- Misc --

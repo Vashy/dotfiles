@@ -14,6 +14,7 @@ set incsearch       " incremental search
 set nu              " show line numbers
 set relativenumber  " show relative line numbers
 set autoread        " autoreloads non written files 
+set list            " visible whitespaces/tabs
 
 call plug#begin('~/.local/share/nvim/site/plugged')
 
@@ -83,6 +84,8 @@ nnoremap <C-b> <C-b>zz
 
 " Copy and paste
 vnoremap <leader>c "+y
+nnoremap <leader>c "+yy
+vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 

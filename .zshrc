@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/Applications/lang_servers/jdt-language-server-1.54.0-202511261751/bin:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/Applications/verapdf:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -128,6 +128,7 @@ alias dcd="docker compose down"
 alias dcu="docker compose up -d --build"
 alias open="explorer.exe"
 alias rgf='rg --files | rg'
+alias lg='lazygit'
 
 # Sets vi keybindings
 set -o vi
