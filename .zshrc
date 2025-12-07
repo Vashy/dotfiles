@@ -127,8 +127,8 @@ export NVM_DIR="$HOME/.nvm"
 alias dcd="docker compose down"
 alias dcu="docker compose up -d --build"
 alias open="explorer.exe"
-alias rgf='rg --files | rg'
 alias lg='lazygit'
+alias vimdiff="vim -d"
 
 # Sets vi keybindings
 set -o vi
@@ -153,3 +153,4 @@ bindkey -v
 eval "$(ssh-agent -s)"
 ssh-add $HOME/.ssh/github
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

@@ -12,15 +12,17 @@ decorations_theme_variant = "Dark" # "Light"
 
 [terminal.shell]
 
-program = "ubuntu"
+program = "/bin/zsh"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font Mono"
 
 [font]
-
 # normal.family = "Overpass"
 # bold.family = "Overpass"
 # italic.family = "Overpass"
 # bold_italic.family = "Overpass"
 
-size = 14.0
+size = 13.0
 
 [terminal]
