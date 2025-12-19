@@ -77,8 +77,9 @@ plugins=(
 	z
 	git
 	zsh-autosuggestions
-	zsh-syntax-highlighting
+	# zsh-syntax-highlighting
 	fast-syntax-highlighting
+    direnv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -130,28 +131,36 @@ alias dcu="docker compose up -d --build"
 alias open="explorer.exe"
 alias lg='lazygit'
 alias vimdiff="vim -d"
+alias pwdwin="wslpath -w $(pwd)"
+
 
 # Sets vi keybindings
-set -o vi
-
-# show different cursor based on vi mode
-zle-keymap-select () {
-if [ $KEYMAP = vicmd ]; then
-    printf "\033[2 q"
-else
-    printf "\033[6 q"
-fi
-}
-zle -N zle-keymap-select
-zle-line-init () {
-    zle -K viins
-    printf "\033[6 q"
-}
-zle -N zle-line-init
-bindkey -v
+# set -o vi
+#
+# # show different cursor based on vi mode
+# zle-keymap-select () {
+# if [ $KEYMAP = vicmd ]; then
+#     printf "\033[2 q"
+# else
+#     printf "\033[6 q"
+# fi
+# }
+# zle -N zle-keymap-select
+# zle-line-init () {
+#     zle -K viins
+#     printf "\033[6 q"
+# }
+# zle -N zle-line-init
+# bindkey -v
 
 # Fix Github ssh-agent
 eval "$(ssh-agent -s)"
 ssh-add $HOME/.ssh/github
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Nix
+export NIX_SHELL='zsh -i'  # -i ensures interactive mode (loads ~/.zshrc)
+
+# Direnv
+eval "$(direnv hook zsh)"
