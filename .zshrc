@@ -78,7 +78,7 @@ plugins=(
 	git
 	zsh-autosuggestions
 	# zsh-syntax-highlighting
-	fast-syntax-highlighting
+	# fast-syntax-highlighting
     direnv
 )
 
@@ -131,6 +131,8 @@ alias dcu="docker compose up -d --build"
 alias open="explorer.exe"
 alias lg='lazygit'
 alias vimdiff="vim -d"
+alias vimk='NVIM_APPNAME="nvim-kickstart" vim'
+alias v='NVIM_APPNAME="nvim-kickstart" vim'
 alias pwdwin="wslpath -w $(pwd)"
 
 
@@ -158,6 +160,9 @@ eval "$(ssh-agent -s)"
 ssh-add $HOME/.ssh/github
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# opencode
+export PATH=/home/vashy/.opencode/bin:$PATH
 
 # Nix
 export NIX_SHELL='zsh -i'  # -i ensures interactive mode (loads ~/.zshrc)
