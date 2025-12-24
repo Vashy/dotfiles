@@ -74,9 +74,11 @@ ZSH_THEME="amuse"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	z
+	# z
 	git
 	zsh-autosuggestions
+    zoxide
+    fzf-tab
 	# zsh-syntax-highlighting
 	# fast-syntax-highlighting
     direnv
@@ -131,10 +133,13 @@ alias dcu="docker compose up -d --build"
 alias open="explorer.exe"
 alias lg='lazygit'
 alias vimdiff="vim -d"
-alias vimk='NVIM_APPNAME="nvim-kickstart" vim'
-alias v='NVIM_APPNAME="nvim-kickstart" vim'
+alias v='vim'
 alias pwdwin="wslpath -w $(pwd)"
+alias ls='eza'
+alias cat='bat --style=plain --paging=never'
 
+# Set bat as man pager colorizer
+export MANPAGER="bat -plman"
 
 # Sets vi keybindings
 # set -o vi
@@ -169,3 +174,12 @@ export NIX_SHELL='zsh -i'  # -i ensures interactive mode (loads ~/.zshrc)
 
 # Direnv
 eval "$(direnv hook zsh)"
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+# Zoxide
+# Manually remove any existing 'z' function/alias to clear the path
+unalias z 2>/dev/null
+unset -f z 2>/dev/null
+eval "$(zoxide init zsh --cmd z)"
