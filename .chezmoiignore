@@ -5,3 +5,4 @@ README.md
 #.config/nvim/.github
 .config/nvim/lazy-lock.json
 chezmoi.toml
+Dockerfile
