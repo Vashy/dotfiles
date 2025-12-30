@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     sudo \
     bash \
     gcc \
+    xz-utils \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
