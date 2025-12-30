@@ -8,4 +8,7 @@ Run:
 ```sh
 docker build -t chezmoi-test .
 docker run --rm -it chezmoi-test 
+
+# Inside the container
+chezmoi init --apply ~/temp_dotfiles
 ```
