@@ -1,0 +1,12 @@
+[user]
+	email = {{ .git.email }}
+	name = {{ .git.name }}
+[core]
+	editor = vim
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[merge]
+	conflictStyle = zdiff3
