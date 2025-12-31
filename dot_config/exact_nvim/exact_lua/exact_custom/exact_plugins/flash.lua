@@ -5,7 +5,7 @@ return {
     modes = {
       char = {
         enabled = true, -- This enables the gray-out/label effect for f, t, F, T
-        jump_labels = true, -- This shows labels even for simple f/t motions
+        jump_labels = false, -- This shows labels even for simple f/t motions
       },
     },
   },

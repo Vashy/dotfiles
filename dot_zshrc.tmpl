@@ -86,6 +86,10 @@ plugins=(
     direnv
 )
 
+{{ if contains  "WSL2" .chezmoi.kernel.osrelease }}
+export ENTR_INOTIFY_WORKAROUND=1
+{{ end }}
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -139,6 +143,10 @@ alias v='vim'
 alias pwdwin="wslpath -w $(pwd)"
 alias ls='eza'
 alias cat='bat --style=plain --paging=never'
+
+if ! command -v fd &> /dev/null; then
+    alias fd='fdfind'
+fi
 
 # Set bat as man pager colorizer
 export MANPAGER="bat -plman"
