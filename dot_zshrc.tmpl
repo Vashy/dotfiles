@@ -80,7 +80,9 @@ plugins=(
     zoxide
     fzf-tab
 	# zsh-syntax-highlighting
+{{ if (not (contains  "WSL2" .chezmoi.kernel.osrelease)) }}
 	fast-syntax-highlighting
+{{ end }}
     direnv
 )
 
