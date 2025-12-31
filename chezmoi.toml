@@ -1,5 +1,5 @@
 # copy this:
-# cp chezmoi.toml ~/.local/share/chezmoi/chezmoi.toml
+# cp chezmoi.toml ~/.config/chezmoi/chezmoi.toml
 [data.git]
 email = "-- INSERT --"
 name = "-- INSERT --"
