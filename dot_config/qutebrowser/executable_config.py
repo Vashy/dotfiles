@@ -1383,15 +1383,15 @@ c.fonts.default_size = '13pt'
 
 ## Default font size (in pixels) for regular text.
 ## Type: Int
-# c.fonts.web.size.default = 16
+c.fonts.web.size.default = 18
 
 ## Default font size (in pixels) for fixed-pitch text.
 ## Type: Int
-# c.fonts.web.size.default_fixed = 13
+c.fonts.web.size.default_fixed = 16
 
 ## Hard minimum font size (in pixels).
 ## Type: Int
-# c.fonts.web.size.minimum = 0
+c.fonts.web.size.minimum = 13
 
 ## Minimum logical font size (in pixels) that is applied when zooming
 ## out.
