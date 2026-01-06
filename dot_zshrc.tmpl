@@ -1,3 +1,6 @@
+# uncomment this and the last line to debug zsh startup time
+# zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/Applications/lang_servers/jdt-language-server-1.54.0-202511261751/bin:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/Applications/verapdf:$PATH
 
@@ -203,3 +206,6 @@ export VISUAL="$EDITOR"
 unalias z 2>/dev/null
 unset -f z 2>/dev/null
 eval "$(zoxide init zsh --cmd z)"
+
+# uncomment this and the first line to debug zsh startup time
+# zprof
