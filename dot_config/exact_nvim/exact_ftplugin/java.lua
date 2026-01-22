@@ -12,6 +12,7 @@ local root_dir = jdtls.setup.find_root(root_markers)
 -- Create a unique workspace folder for each project to avoid cache conflicts
 local project_name = vim.fn.fnamemodify(root_dir, ':p:h:t')
 local workspace_dir = vim.fn.stdpath 'data' .. '/jdtls-workspace/' .. project_name
+local lombok_path = vim.fn.expand '~/.local/share/lombok.jar'
 
 -- Use the exact same capabilities as the rest of your editor
 local capabilities = require('blink.cmp').get_lsp_capabilities()
@@ -31,7 +32,7 @@ local config = {
     'java.base/java.util=ALL-UNNAMED',
     '--add-opens',
     'java.base/java.lang=ALL-UNNAMED',
-
+    '-javaagent:' .. lombok_path,
     -- Point to the Mason-installed jdtls jar and config
     '-jar',
     vim.fn.split(vim.fn.glob(vim.fn.stdpath 'data' .. '/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar'), '\n')[1],
