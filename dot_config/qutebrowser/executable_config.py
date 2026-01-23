@@ -35,7 +35,8 @@ if not os.path.exists(config.configdir / "theme.py"):
 
 if os.path.exists(config.configdir / "theme.py"):
     import theme
-    theme.setup(c, 'mocha', True)
+
+    theme.setup(c, "mocha", True)
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
 # config.load_autoconfig(True)
@@ -1311,7 +1312,7 @@ if os.path.exists(config.configdir / "theme.py"):
 ## either a float value with a "pt" suffix, or an integer value with a
 ## "px" suffix.
 ## Type: String
-c.fonts.default_size = '13pt'
+c.fonts.default_size = "13pt"
 
 ## Font used for the downloadbar.
 ## Type: Font
@@ -2030,7 +2031,7 @@ c.fonts.web.size.minimum = 13
 
 ## Padding (in pixels) around text for tabs.
 ## Type: Padding
-c.tabs.padding = {'top': 5, 'bottom': 5, 'left': 5, 'right': 5}
+c.tabs.padding = {"top": 5, "bottom": 5, "left": 5, "right": 5}
 
 ## Force pinned tabs to stay at fixed URL.
 ## Type: Bool
@@ -2047,7 +2048,7 @@ c.tabs.padding = {'top': 5, 'bottom': 5, 'left': 5, 'right': 5}
 ##   - bottom
 ##   - left
 ##   - right
-c.tabs.position = 'left'
+c.tabs.position = "left"
 
 ## Which tab to select when the focused tab is removed.
 ## Type: SelectOnRemove
@@ -2064,7 +2065,7 @@ c.tabs.position = 'left'
 ##   - never: Always hide the tab bar.
 ##   - multiple: Hide the tab bar if only one tab is open.
 ##   - switching: Show the tab bar when switching tabs.
-c.tabs.show = 'always'
+c.tabs.show = "always"
 
 ## Duration (in milliseconds) to show the tab bar before hiding it when
 ## tabs.show is set to 'switching'.
@@ -2182,6 +2183,46 @@ c.tabs.show = 'always'
 ## qutebrowser`.
 ## Type: Dict
 # c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
+from qutebrowser.browser.qutescheme import add_handler, Redirect
+from qutebrowser.qt.core import QUrl, QUrlQuery
+
+c.url.searchengines = {"DEFAULT": "qute://bangs?q={}"}
+BANGS = {
+    "DEFAULT": "https://duckduckgo.com/lite?q={}",
+    # "!arch": "https://wiki.archlinux.org/index.php?search={}",
+    "!yt": "https://www.youtube.com/results?search_query={}",
+    # "!imdb": "https://www.imdb.com/find/?s=all&q={}",
+    "!g": "https://www.google.com/search?hl=en&udm=14&q={}",
+    "!gh": "https://github.com/search?utf8=✓&type=Code&q={}",
+    "!tk": "https://support.euronovate.com/redmine/issues/{}",
+    "!bb": "https://bitbucket.org/euronovate/workspace/repositories/?search={}",
+    "!tkj": "https://euronovate.atlassian.net/browse/{}",
+    "!jira": "https://euronovate.atlassian.net/issues/?jql=textfields%20~%20%22{}%2A%22",
+    "!confluence": "https://euronovate.atlassian.net/wiki/search?text={}",
+    "!gm": "https://www.google.com/maps?hl=en&q={}",
+    # # "!gi": "https://www.google.com/search?q={}&tbs=imgo:1&udm=2",
+}
+
+import re
+
+BANG_RE = re.compile(r"(?:^|\s)(![^ ]+)(?:\s|$)")
+
+
+@add_handler("bangs")
+def qute_bangs(url: QUrl):
+    q = QUrlQuery(url).queryItemValue("q", QUrl.ComponentFormattingOption.FullyDecoded)
+    bang = None
+
+    def repl(m):
+        nonlocal bang
+        bang = BANGS.get(m.group(1), None)
+        return " " if bang else m.group(0)
+
+    q = BANG_RE.sub(repl, q, 1)
+    bang = bang or BANGS["DEFAULT"]
+
+    raise Redirect(QUrl(bang.replace("{}", q.strip())))
+
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
@@ -2212,7 +2253,7 @@ c.window.hide_decoration = True
 
 ## Default zoom level.
 ## Type: Perc
-# c.zoom.default = '100%'
+c.zoom.default = '125%'
 
 ## Available zoom levels.
 ## Type: List of Perc

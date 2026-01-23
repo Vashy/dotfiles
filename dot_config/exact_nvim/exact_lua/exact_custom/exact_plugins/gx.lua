@@ -1,7 +1,8 @@
+-- Requires wslview (wslu) in WSL
 return {
   'chrishrb/gx.nvim',
-  keys = { { 'gx', '<cmd>Browse<cr>', mode = { 'n', 'x' }, description = 'Open URI' } },
-  cmd = 'Browse',
+  keys = { { 'gx', '<cmd>Browse<cr>', mode = { 'n', 'x' }, desc = 'Open URI' } },
+  cmd = { 'Browse' },
   init = function()
     vim.g.netrw_nogx = 1 -- disable netrw gx
   end,
