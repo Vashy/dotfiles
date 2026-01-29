@@ -19,3 +19,4 @@ install_if_missing() {
 install_if_missing eza eza
 install_if_missing bat "--locked bat"
 install_if_missing delta git-delta
+install_if_missing ouch ouch
