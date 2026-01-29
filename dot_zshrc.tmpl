@@ -93,6 +93,11 @@ plugins=(
 export ENTR_INOTIFY_WORKAROUND=1
 {{ end }}
 
+# Load machine-local environment variables
+if [[ -f "$HOME/.zshrc_local" ]]; then
+    source "$HOME/.zshrc_local"
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
