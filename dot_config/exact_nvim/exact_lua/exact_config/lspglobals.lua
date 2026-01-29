@@ -99,3 +99,9 @@ _G.lsp_mappings = function(event)
     end, 'Toggle Inlay [H]ints')
   end
 end
+
+vim.filetype.add {
+  filename = {
+    ['Jenkinsfile'] = 'groovy',
+  },
+}

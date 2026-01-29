@@ -537,6 +537,9 @@ require('lazy').setup({
         --     },
         --   },
         -- },
+        groovyls = {
+          -- filetypes = {  },
+        },
       }
 
       -- Ensure the servers and tools above are installed
