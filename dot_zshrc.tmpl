@@ -187,7 +187,7 @@ export MANPAGER="bat -plman"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # opencode
-export PATH=/home/vashy/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 
 # Nix
 export NIX_SHELL='zsh -i'  # -i ensures interactive mode (loads ~/.zshrc)
@@ -207,6 +207,9 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'bat --color=always --style=numbers -
 
 export EDITOR="vim"
 export VISUAL="$EDITOR"
+
+# ddgr
+export BROWSER=w3m
 
 # Zoxide
 # Manually remove any existing 'z' function/alias to clear the path
