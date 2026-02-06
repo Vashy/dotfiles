@@ -18,7 +18,10 @@ _G.lsp_mappings = function(event)
   map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
   -- Find references for the word under your cursor.
-  map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  -- map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  map('gr', function()
+    Snacks.picker.lsp_references()
+  end, '[G]oto [R]eferences')
 
   -- Jump to the implementation of the word under your cursor.
   --  Useful when your language has ways of declaring types without an actual implementation.
