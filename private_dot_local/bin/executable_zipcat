@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "No archive given"
+  exit 1
+fi
+
+if [ -z "$2" ]; then
+  echo "No pattern given"
+  exit -1
+fi
+
+FILE_FOUND=$(zipls "$1" "$2")
+if [ -z "$FILE_FOUND" ]; then
+  echo "No file with pattern '$1' found inside $2"
+  exit 1
+fi
+
+echo "$FILE_FOUND" >&2
+echo "-----------" >&2
+
+unzip -p "$1" "$FILE_FOUND"
