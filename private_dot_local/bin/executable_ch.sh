@@ -15,7 +15,11 @@ else
 fi
 
 if printf "%s" "$languages" | grep -qs $learn_entry; then
-    curl cht.sh/$learn_entry/$(echo $query | tr ' ' '+') 2> /dev/null
+    if [ -z "$query" ]; then
+        curl cht.sh/$learn_entry 2> /dev/null
+    else
+        curl cht.sh/$learn_entry/$(echo $query | tr ' ' '+') 2> /dev/null
+    fi
 else
-    curl cht.sh/$learn_entry~$query 2> /dev/null
+    curl cht.sh/$learn_entry~$(echo $query | tr ' ' '+') 2> /dev/null
 fi
