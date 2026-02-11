@@ -23,6 +23,6 @@ family = "JetBrainsMono Nerd Font Mono"
 # italic.family = "Overpass"
 # bold_italic.family = "Overpass"
 
-size = 13.0
+size = 14.0
 
 [terminal]

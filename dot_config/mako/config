@@ -1,0 +1,31 @@
+# Global settings
+# 5000ms = 5 seconds
+default-timeout=3000
+
+# Optional: Add some style while you're at it
+font=JetBrainsMono Nerd Font Mono 15
+width=500
+height=150
+margin=20
+padding=15
+border-size=3
+border-radius=8
+
+# Interaction
+on-button-left=dismiss
+on-button-right=dismiss-all
+
+# --- Standard Colors (Light Blue / Cyan) ---
+background-color=#1a1b26
+text-color=#7dcfff
+border-color=#7dcfff
+
+# --- Low Urgency (Red Alert) ---
+# [urgency=low]
+
+# --- Critical Urgency (Red Alert) ---
+[urgency=critical]
+border-color=#f7768e
+text-color=#f7768e
+background-color=#2d1b1e
+default-timeout=0

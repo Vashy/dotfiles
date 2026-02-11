@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# A simple wrapper to show cliphist (without images) in Fuzzel
+# Requires: cliphist, fuzzel, wl-copy
+
+selected=$(cliphist list | fuzzel --dmenu --with-nth 2)
+
+if [ -n "$selected" ]; then
+    echo "$selected" | cliphist decode | wl-copy
+fi
