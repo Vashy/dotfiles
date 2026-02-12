@@ -9,6 +9,9 @@ _G.lsp_mappings = function(event)
     vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
   end
 
+  -- Show current line diagnostics
+  map('<leader>cd', vim.diagnostic.open_float, 'Show Line [D]iagnostic', { 'n' })
+
   -- Rename the variable under your cursor.
   --  Most Language Servers support renaming across files, etc.
   map('<leader>cr', vim.lsp.buf.rename, '[R]ename')
@@ -103,8 +106,14 @@ _G.lsp_mappings = function(event)
   end
 end
 
-vim.filetype.add {
-  filename = {
-    ['Jenkinsfile'] = 'groovy',
-  },
-}
+-- vim.filetype.add {
+--   filename = {
+--     ['.[Jj]enkinsfile.*'] = 'groovy',
+--   },
+-- }
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = { 'Jenkinsfile*', 'jenkinsfile*' },
+  callback = function()
+    vim.bo.filetype = 'groovy'
+  end,
+})
