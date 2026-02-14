@@ -2,6 +2,7 @@ return {
   {
     'milanglacier/minuet-ai.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    enabled = os.getenv 'NVIM_LOCAL_LLM_ENABLED' == 'true',
     config = function()
       require('minuet').setup {
         n_completions = 1, -- recommend for local model for resource saving

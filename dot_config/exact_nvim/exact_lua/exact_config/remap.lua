@@ -59,3 +59,6 @@ vim.keymap.set('n', '<C-w>|', '<C-w>v', { desc = 'Split vertical', remap = false
 
 -- Handled by gx.nvim
 vim.keymap.del({ 'n', 'x' }, 'gx')
+
+-- Handled by todofloat.lua
+vim.keymap.set('n', '<leader>T', ':TdNotes<CR>', { desc = 'Open global Todo', silent = true })
