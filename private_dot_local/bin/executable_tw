@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Ensure we are actually inside tmux
+if [ -z "$TMUX" ]; then
+    echo "Error: Must be inside a tmux session"
+    exit 1
+fi
+
+# Use zoxide to pick a subdirectory
+selected_folder=$(zoxide query -l | fzf --reverse --header="Open New Window in Folder")
+
+[ -z "$selected_folder" ] && exit 0
+
+# Get the folder name for the window title
+window_name=$(basename "$selected_folder")
+
+# Create the window and switch to it
+tmux new-window -n "$window_name" -c "$selected_folder"
+

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+selected_folder=$(zoxide query -l | fzf --reverse --header="Select Project Session")
+
+[ -z "$selected_folder" ] && exit 0
+
+# Get the folder name to use as the session name
+session_name=$(basename "$selected_folder" | tr . _)
+
+# If not in tmux, or in a different session, switch/create
+if ! tmux has-session -t="$session_name" 2> /dev/null; then
+    tmux new-session -ds "$session_name" -c "$selected_folder" -n "$session_name"
+fi
+
+if [ -z "$TMUX" ]; then
+    tmux attach-session -t "$session_name"
+else
+    tmux switch-client -t "$session_name"
+fi
