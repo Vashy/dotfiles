@@ -53,7 +53,7 @@ return {
           openai_fim_compatible = {
             api_key = 'TERM',
             name = 'Llama.cpp',
-            end_point = 'http://localhost:7999/v1/completions',
+            end_point = os.getenv 'LOCAL_LLM_URI' .. '/v1/completions',
             -- The model is set by the llama-cpp server and cannot be altered
             -- post-launch.
             model = 'PLACEHOLDER',

@@ -44,7 +44,7 @@ local function open_floating_file(target_file)
 
   local win = vim.api.nvim_open_win(buf, true, win_config())
 
-  vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', '', {
+  vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '', {
     noremap = true,
     silent = true,
     callback = function()

@@ -1267,13 +1267,13 @@ require('lazy').setup({
         desc = 'Git Browse',
         mode = { 'n', 'v' },
       },
-      {
-        '<leader>gg',
-        function()
-          Snacks.lazygit()
-        end,
-        desc = 'Lazygit',
-      },
+      -- {
+      --   '<leader>gg',
+      --   function()
+      --     Snacks.lazygit()
+      --   end,
+      --   desc = 'Lazygit',
+      -- },
       -- {
       --   '<leader>tn',
       --   function()
