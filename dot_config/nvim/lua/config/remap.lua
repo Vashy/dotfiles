@@ -1,6 +1,8 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+local functions = require 'config.functions'
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -62,3 +64,7 @@ vim.keymap.del({ 'n', 'x' }, 'gx')
 
 -- Handled by todofloat.lua
 vim.keymap.set('n', '<leader>T', ':TdNotes<CR>', { desc = 'Open global Todo', silent = true })
+
+-- Sum
+vim.keymap.set('n', '<leader>C', functions.math.calculate_register, { desc = 'Sum values in register " (\\n separated)' })
+vim.keymap.set('v', '<leader>C', functions.math.calculate_visual, { desc = 'Sum values in visual selection (\\n separated)' })

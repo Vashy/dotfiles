@@ -1,13 +1,18 @@
 local M = {}
 
+local scale_factor = 0.7
+
 local function center_in(outer, inner)
   return (outer - inner) / 2
 end
 
+---@return vim.api.keyset.win_config
 local function win_config()
-  local width = math.min(math.floor(vim.o.columns * 0.8), 64)
-  local height = math.floor(vim.o.lines * 0.8)
+  local width = math.floor(vim.o.columns * scale_factor)
+  -- local width = math.min(math.floor(vim.o.columns * scale_factor), 64)
+  local height = math.floor(vim.o.lines * scale_factor)
 
+  ---@type vim.api.keyset.win_config
   return {
     width = width,
     height = height,
