@@ -11,9 +11,21 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 #      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 # dpi ?
-exec xrdb -merge ~/.Xresources
+# exec_always xrdb -merge ~/.Xresources
+exec_always {
+    xrdb -merge <<< "Xft.dpi: 144"
+}
+# 96 = 100% (Default)
+# 120 = 125%
+# 144 = 150%
 # File with content:
 # Xft.dpi: 120
+
+# For GTK (Gnome-style apps)
+exec_always gsettings set org.gnome.desktop.interface text-scaling-factor 1.50
+
+# For Qt (KDE-style apps)
+exec_always export QT_WAYLAND_FORCE_DPI=144
 
 ### Variables
 #
@@ -35,6 +47,7 @@ include /etc/sway/config-vars.d/*
 focus_follows_mouse yes
 default_border pixel
 default_floating_border pixel
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -55,7 +68,6 @@ output * scale_filter nearest
 # smart_borders off
 gaps inner 9
 gaps outer 12
-
 ### Idle configuration
 #
 # ------------------------------------------------------------
@@ -65,16 +77,10 @@ gaps outer 12
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 1200 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-
-# exec swayidle -w timeout 15 "swaylock -c 550000"
-
-# exec_always swayidle -w \
-#     timeout 600 'swaylock -f' \
-#     timeout 1200 'systemctl suspend'
+exec_always pkill swayidle; swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
 
 ### Input configuration
 #
@@ -105,7 +111,7 @@ exec_always mako
 # exec_always wl-paste --type text --watch cliphist store
 # exec_always wl-paste --type image --watch cliphist store
 
-exec_always pkill gammastep; gammastep -O 4200 &
+exec_always pkill gammastep; gammastep -O 3600 &
 #exec gammastep -O 4500
 
 # Start the collector (supports text and images)
@@ -127,6 +133,17 @@ for_window [class=".*"] inhibit_idle fullscreen
 
 # Reduces the compositor's frame-pacing overhead for games.
 for_window [class=".*"] max_render_time off
+
+# move position 0 0,
+# bindsym $mod+g floating enable, border none, resize set 2560 1440
+# bindsym $mod+Shift+g floating enable, border none, move absolute position 0 0, resize set 2560 1440, inhibit_idle focus
+bindsym $mod+Shift+g floating enable, border none, move position 0 0, inhibit_idle focus
+# Toggle between tiled-with-bar and fullscreen-borderless
+# bindsym $mod+g floating disable, border normal, fullscreen disable
+
+# Make all gamescope windows float and remove borders
+# for_window [app_id="gamescope"] floating enable, border none, inhibit_idle focus
+# for_window [title="(?i)Mewgenics.*"] floating enable, border none, move position 0 0, inhibit_idle focus
 
 # https://github.com/ValveSoftware/gamescope
 # gamescope -W 2560 -H 1440 -f -r 75 -- %command%
@@ -318,7 +335,7 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 
     # change audio device
-    bindsym $mod+Shift+a exec "bash -c ~/.local/bin/audio-switcher.sh"
+    bindsym $mod+F1 exec "bash -c ~/.local/bin/audio-switcher"
 
 
 #
@@ -328,7 +345,7 @@ bindsym $mod+r mode "resize"
 bar {
     position top
 
-    font pango:JetBrainsMono Nerd Font Mono 15
+    font pango:JetBrainsMono Nerd Font Mono 14
     height 35
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
