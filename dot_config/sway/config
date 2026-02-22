@@ -320,6 +320,21 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+mode "poweropts" {
+
+    bindsym $mod+s exec systemctl suspend
+    bindsym $mod+p exec systemctl poweroff
+    bindsym $mod+l exec swaylock -f -i ~/Pictures/Wallpapers/lockscreen.jpg
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+F12 mode "poweropts"
+
+bindsym $mod+p exec "bash -c ~/.local/bin/power-menu"
+
 #
 # Utilities:
 #
@@ -341,9 +356,6 @@ bindsym $mod+r mode "resize"
 
     # change audio device
     bindsym $mod+F1 exec "bash -c ~/.local/bin/audio-switcher"
-
-    bindsym $mod+F12 exec systemctl suspend
-    bindsym $mod+shift+F12 exec systemctl poweroff
 
 #
 # Status Bar:

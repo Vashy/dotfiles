@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -x
+
+options="Poweroff\nSuspend\nLock"
+selected_option=$(echo -e $options | fuzzel --dmenu -p "Power Menu: ")
+
+case $selected_option in
+    Poweroff)
+        systemctl shutdown
+        ;;
+    Suspend)
+        systemctl suspend
+        ;;
+    Lock)
+        swaylock -f -i ~/Pictures/Wallpapers/lockscreen.jpg
+        ;;
+esac

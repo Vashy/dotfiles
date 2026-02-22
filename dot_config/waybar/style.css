@@ -57,6 +57,7 @@ window#waybar.hidden {
 #battery,
 #backlight,
 #wireplumber,
+#mode,
 #pulseaudio,
 #network,
 #gamemode,
@@ -67,6 +68,21 @@ window#waybar.hidden {
   padding: 6px 12px;
   background-color: #202030;
   color: #11111c;
+}
+
+#mode {
+    /* all: initial; */
+    /* Remove GTK theme values (waybar #1351) */
+    min-width: 0;
+    /* Fix weird spacing in materia (waybar #450) */
+    /* box-shadow: inset 0 -3px transparent; */
+    /* Use box-shadow instead of border so the text isn't offset */
+
+    padding: 6px 18px;
+    margin: 6px 3px;
+    border-radius: 4px;
+    background-color: #202030;
+    color: #ff4500;
 }
 
 #custom-power {
@@ -124,7 +140,6 @@ window#waybar.hidden {
 }
 
 #clock {
-  font-family: JetBrainsMono Nerd Font;
   background-color: #f79696;
 }
 
