@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Usage: ./volume.sh up, ./volume.sh down, ./volume.sh mute
+step="5%"
+sink="@DEFAULT_AUDIO_SINK@"
+
+case "$1" in
+    up)
+        wpctl set-volume -l 1.5 "$sink" "$step+" # -l 1.5 limits max volume to 150%
+        ;;
+    down)
+        wpctl set-volume "$sink" "$step-"
+        ;;
+    mute)
+        wpctl set-mute "$sink" toggle
+        ;;
+    *)
+        echo "Usage: $0 {up|down|mute}"
+        exit 1
+        ;;
+esac
+
+# Get the new volume and mute status for the notification
+# tr . , -> for locale (I suppose), otherwise awk does not multiply
+volume=$(wpctl get-volume "$sink" | tr . , | awk '{print $2 * 100}')
+is_muted=$(wpctl get-volume "$sink" | grep -i "MUTED")
+
+if [ -n "$is_muted" ]; then
+    notify-send -h string:x-canonical-private-synchronous:volume \
+                -u low -i audio-volume-muted "🔇 Muted"
+else
+    # Sends a notification with a progress bar (supported by most mako/dunst configs)
+    notify-send -h string:x-canonical-private-synchronous:volume \
+                -h "int:value:$volume" \
+                -u low -i audio-speakers "🕪 Volume: ${volume}%"
+fi

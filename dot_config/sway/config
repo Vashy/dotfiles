@@ -59,15 +59,15 @@ default_floating_border pixel
 # Example configuration:
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-output * adaptive_sync on
-output DP-2 resolution 2560x1440@75Hz position 2560,0 scale 1
+# output * adaptive_sync on
+output DP-2 resolution 2560x1440@143.973Hz position 2560,0 scale 1
 output * scale_filter nearest
 # xwayland disable
 
 # smart_gaps off
 # smart_borders off
-gaps inner 9
-gaps outer 12
+gaps inner 8
+gaps outer 8
 ### Idle configuration
 #
 # ------------------------------------------------------------
@@ -77,10 +77,12 @@ gaps outer 12
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
+# timeout 300 'swaylock -f -c 000000' \
 exec_always pkill swayidle; swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         timeout 600 'swaylock -f -i ~/Pictures/Wallpapers/lockscreen.jpg' \
+         timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f ~/Pictures/Wallpapers/lockscreen.jpg'
+# stat
 
 ### Input configuration
 #
@@ -100,7 +102,8 @@ exec_always pkill swayidle; swayidle -w \
 # ------------------------------------------------------------
 # Autostart
 # ------------------------------------------------------------
-exec_always swaybg -i ~/Pictures/e33-wallpaper.jpg -m fill
+exec_always swaybg -i ~/Pictures/Wallpapers/future-city-old-school.jpg -m fill
+# exec_always swaybg -i ~/Pictures/Wallpapers/e33-wallpaper.jpg -m fill
 # exec_always waybar
 
 # For notifications: sudo apt install mako
@@ -108,8 +111,6 @@ exec_always mako
 
 # exec_always kanshi
 # exec_always gammastep -l manual -t 6500:3500
-# exec_always wl-paste --type text --watch cliphist store
-# exec_always wl-paste --type image --watch cliphist store
 
 exec_always pkill gammastep; gammastep -O 3600 &
 #exec gammastep -O 4500
@@ -144,6 +145,7 @@ bindsym $mod+Shift+g floating enable, border none, move position 0 0, inhibit_id
 # Make all gamescope windows float and remove borders
 # for_window [app_id="gamescope"] floating enable, border none, inhibit_idle focus
 # for_window [title="(?i)Mewgenics.*"] floating enable, border none, move position 0 0, inhibit_idle focus
+for_window [title="Learn OpenGL"] floating enable, move position center
 
 # https://github.com/ValveSoftware/gamescope
 # gamescope -W 2560 -H 1440 -f -r 75 -- %command%
@@ -322,9 +324,12 @@ bindsym $mod+r mode "resize"
 # Utilities:
 #
     # Special keys to adjust volume via PulseAudio
-    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    # bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    # bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    # bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioMute        exec ~/.local/bin/audio-volume mute
+    bindsym --locked XF86AudioLowerVolume exec ~/.local/bin/audio-volume down
+    bindsym --locked XF86AudioRaiseVolume exec ~/.local/bin/audio-volume up
     bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
@@ -337,26 +342,30 @@ bindsym $mod+r mode "resize"
     # change audio device
     bindsym $mod+F1 exec "bash -c ~/.local/bin/audio-switcher"
 
+    bindsym $mod+F12 exec systemctl suspend
+    bindsym $mod+shift+F12 exec systemctl poweroff
 
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
-
-    font pango:JetBrainsMono Nerd Font Mono 14
-    height 35
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d  %X  '; do sleep 1; done
-    # status_command i3status
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    # position top
+    #
+    # font pango:JetBrainsMono Nerd Font Mono 14
+    # height 35
+    # # When the status_command prints a new line to stdout, swaybar updates.
+    # # The default just shows the current date and time.
+    # status_command while date +'%Y-%m-%d  %X  '; do sleep 1; done
+    # # status_command i3status
+    # # status_command waybar
+    #
+    # colors {
+    #     statusline #ffffff
+    #     background #323232
+    #     inactive_workspace #32323200 #32323200 #5c5c5c
+    # }
+    swaybar_command waybar
 }
 
 include /etc/sway/config.d/*

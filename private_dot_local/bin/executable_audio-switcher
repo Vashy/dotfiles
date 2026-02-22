@@ -1,13 +1,11 @@
 #!/bin/bash
 
-# 1. Get the Sinks section and use a cleaner regex
+# Get the Sinks section and use a cleaner regex
 # We look for lines that contain a number followed by a dot
 devices=$(wpctl status | sed -n '/Sinks:/,/Sources:/p' | grep -E '[0-9]+\.' | sed 's/│//g; s/├─//g; s/└─//g; s/^[[:space:]]*//')
 
-# 2. Use fuzzel to pick a device
 selected=$(echo "$devices" | fuzzel --dmenu --prompt "Choose Audio Output: " -l 10)
 
-# 3. Process the selection
 if [ -n "$selected" ]; then
     # Strip the leading '*' if it's there, then grab the ID before the first dot
     device_id=$(echo "$selected" | sed 's/\*//g' | awk -F. '{print $1}' | xargs)
@@ -15,7 +13,5 @@ if [ -n "$selected" ]; then
     # Set the device
     wpctl set-default "$device_id"
 
-    # Notify
     notify-send "Audio Output Switched" "Active: $(echo "$selected" | sed 's/^[0-9.]*//; s/\*//g' | xargs)" -i audio-speakers
-    # echo "Active: $(echo "$selected" | sed 's/^[0-9.]*//; s/\*//g' | xargs)"
 fi

@@ -59,6 +59,7 @@ window#waybar.hidden {
 #wireplumber,
 #pulseaudio,
 #network,
+#gamemode,
 #clock,
 #tray {
   border-radius: 4px;
@@ -113,6 +114,10 @@ window#waybar.hidden {
   background-color: #f9e2af;
 }
 
+#gamemode {
+  background-color: #f9e2af;
+}
+
 #network {
   background-color: #94e2d5;
   padding-right: 17px;
@@ -120,7 +125,7 @@ window#waybar.hidden {
 
 #clock {
   font-family: JetBrainsMono Nerd Font;
-  background-color: #cba6f7;
+  background-color: #f79696;
 }
 
 #custom-power {
