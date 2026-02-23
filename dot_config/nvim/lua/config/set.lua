@@ -91,3 +91,6 @@ vim.o.confirm = true
 -- Enable undo file persistence
 vim.o.undodir = os.getenv 'HOME' .. '/.cache/nvim/undodir/'
 vim.o.undofile = true
+
+-- Instruct <C-a> <C-x> to ignore negative (-) signs
+vim.opt.nrformats:append 'unsigned'
