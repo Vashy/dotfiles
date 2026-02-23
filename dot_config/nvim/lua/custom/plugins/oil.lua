@@ -26,6 +26,10 @@ return {
       win_options = {
         wrap = true,
       },
+      keymaps = {
+        ['<C-c>'] = { 'actions.close', mode = 'n' },
+        ['q'] = { 'actions.close', mode = 'n' },
+      },
     }
   end,
   -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons

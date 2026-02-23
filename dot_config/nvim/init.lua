@@ -510,6 +510,7 @@ require('lazy').setup({
           },
         },
         zls = {},
+        jsonls = {},
         lemminx = {},
         jdtls = {
           autostart = false,
@@ -611,7 +612,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true, java = true, json = true, xml = true }
+        local disable_filetypes = { c = true, cpp = true, java = true, json = true, jsonc = true, xml = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
