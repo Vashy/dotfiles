@@ -1,0 +1,1 @@
+LD_PRELOAD= gamescope -W 2560 -H 1440 --expose-wayland -f --backend wayland --mangoapp --force-grab-cursor --adaptive-sync -- env LD_PRELOAD="$LD_PRELOAD" %command%

@@ -7,7 +7,7 @@ selected_option=$(echo -e $options | fuzzel --dmenu -p "Power Menu: ")
 
 case $selected_option in
     Poweroff)
-        systemctl shutdown
+        systemctl poweroff
         ;;
     Suspend)
         systemctl suspend
