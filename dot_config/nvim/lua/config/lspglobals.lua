@@ -106,14 +106,31 @@ _G.lsp_mappings = function(event)
   end
 end
 
--- vim.filetype.add {
---   filename = {
---     ['.[Jj]enkinsfile.*'] = 'groovy',
---   },
--- }
+-- Enable direnv in neovim terminal
+vim.api.nvim_create_autocmd('TermOpen', {
+  callback = function()
+    vim.cmd.startinsert()
+    local direnv_status = vim.fn.system { 'direnv', 'status' }
+    if direnv_status:find 'Found RC path' then
+      vim.api.nvim_input 'direnv reload<cr>'
+    end
+  end,
+})
+
+-- use groovy for Jenkinsfile
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = { 'Jenkinsfile*', 'jenkinsfile*' },
   callback = function()
     vim.bo.filetype = 'groovy'
   end,
 })
+
+-- Clear lua snippets mode on exiting insert/select mode
+vim.keymap.set({ 'i', 's' }, '<Esc>', function()
+  local ok, luasnip = pcall(require, 'luasnip')
+  if ok and luasnip.expand_or_locally_jumpable() then
+    print 'unlink snippet'
+    luasnip.unlink_current()
+  end
+  return '<Esc>'
+end, { expr = true, silent = true })

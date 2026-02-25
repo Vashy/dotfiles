@@ -59,7 +59,7 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 vim.keymap.set('n', '<C-w>-', '<C-w>s', { desc = 'Split horizontal', remap = false })
 vim.keymap.set('n', '<C-w>|', '<C-w>v', { desc = 'Split vertical', remap = false })
 
--- Handled by gx.nvim
+-- Handled by gx.lua
 vim.keymap.del({ 'n', 'x' }, 'gx')
 
 -- Handled by todofloat.lua
