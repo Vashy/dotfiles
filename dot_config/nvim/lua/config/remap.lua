@@ -55,7 +55,10 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
--- Note that I lose (-) decrease height and (|) max out width
+-- map :copen to <leader>l
+vim.keymap.set('n', '<leader>l', '<cmd>copen<CR>')
+
+-- NOTE: I lose (-) decrease height and (|) max out width
 vim.keymap.set('n', '<C-w>-', '<C-w>s', { desc = 'Split horizontal', remap = false })
 vim.keymap.set('n', '<C-w>|', '<C-w>v', { desc = 'Split vertical', remap = false })
 
