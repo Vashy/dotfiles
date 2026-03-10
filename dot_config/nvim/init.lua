@@ -339,13 +339,13 @@ require('lazy').setup({
       --     vim.keymap.set('n', '<leader>*', builtin.grep_string, { desc = '[ ] Search current Word' })
       --
       --     -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set('n', '<leader>/', function()
-        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      -- vim.keymap.set('n', '<leader>/', function()
+      --   -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+      --   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+      --     winblend = 10,
+      --     previewer = false,
+      --   })
+      -- end, { desc = '[/] Fuzzily search in current buffer' })
       --
       --     -- It's also possible to pass additional configuration options.
       --     --  See `:help telescope.builtin.live_grep()` for information about particular keys
@@ -782,7 +782,7 @@ require('lazy').setup({
           enable = false,
         },
         scroll = {
-          timing = animate.gen_timing.linear { duration = 120, unit = 'total' },
+          timing = animate.gen_timing.linear { duration = 50, unit = 'total' },
           subscroll = animate.gen_subscroll.equal {
             predicate = function(total_scroll)
               if mouse_scrolled then
@@ -1005,7 +1005,7 @@ require('lazy').setup({
         desc = 'Grep Open Buffers',
       },
       {
-        '<leader>f/',
+        '<leader>/',
         function()
           Snacks.picker.grep()
         end,
