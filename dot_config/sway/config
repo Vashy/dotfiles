@@ -59,10 +59,23 @@ default_floating_border pixel
 # Example configuration:
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-# output * adaptive_sync on
-output DP-2 resolution 2560x1440@143.973Hz position 2560,0 scale 1
+# output DP-2 mode 2560x1440@59.951Hz position 2560,0 scale 1
+
+# Can be generated and copied to clipboard with
+# $ cvt 2560 1440 75 | grep "Modeline" | cut -d " " -f3- | wl-copy
+output DP-2 modeline 397.25  2560 2760 3040 3520  1440 1443 1448 1506 -hsync +vsync
+# output DP-2 position 0 0
+output DP-2 scale 1
+
+# output * adaptive_sync on # makes the display flicker
 output * scale_filter nearest
 # xwayland disable
+
+# Keyboard layout
+input * {
+    xkb_layout "us"
+    xkb_variant "altgr-intl"
+}
 
 # smart_gaps off
 # smart_borders off
