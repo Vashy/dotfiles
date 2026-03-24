@@ -1,6 +1,14 @@
 ;; Redirect emacs shenanegans to its own file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
+(require 'package)
+
+;; Add MELPA to the list of repositories
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+;; Initialize the package system
+(package-initialize)
+
 ;; Load it if it exists (so your UI changes actually apply)
 (when (file-exists-p custom-file)
   (load custom-file))
@@ -10,28 +18,29 @@
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
+(show-paren-mode 1) ; matching parenthesis
 
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode +1)
 
+;; Move lock files (.#*) to ~/tmp folder
+(setq lock-file-name-transforms `((".*" "~/tmp/.emacs/" t)))
+;; Move autosave files (#*#) to ~/tmp folder
+(setq auto-save-file-name-transforms `((".*" "~/tmp/.emacs/" t)))
+(setq backup-directory-alist '((".*" . "~/tmp/.emacs/")))
+
 (set-face-attribute 'default nil
                     :font "JetBrainsMono NFM"
-                    :height 170
+                    :height 160
                     :weight 'normal)
 
 ; (add-to-list 'default-frame-alist
              ; '(font . "JetBrainsMono NFM"))
 ;              '(font . "DejaVu Sans Mono-18"))
 
-(load-theme 'dracula t)
-
-(require 'package)
-
-;; Add MELPA to the list of repositories
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
-;; Initialize the package system
-(package-initialize)
+; (load-theme 'dracula t)
+(load-theme 'gruber-darker t)
 
 ;; Refresh contents if you haven't recently
 (unless package-archive-contents
@@ -69,3 +78,7 @@
 ;; You must bind Smex to a key to actually use it!
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+;; Matching parenthesis
+(require 'paredit)
+(paredit-mode 1)
