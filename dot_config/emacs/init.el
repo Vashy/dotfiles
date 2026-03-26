@@ -21,6 +21,9 @@
 (scroll-bar-mode -1)
 (show-paren-mode 1) ; matching parenthesis
 
+;; disable bell
+(setq visible-bell t)
+
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode +1)
 
@@ -29,6 +32,17 @@
 ;; Move autosave files (#*#) to ~/tmp folder
 (setq auto-save-file-name-transforms `((".*" "~/tmp/.emacs/" t)))
 (setq backup-directory-alist '((".*" . "~/tmp/.emacs/")))
+
+;; org-mode
+
+;; automatically set date time when setting DONE
+(setq org-log-done 'time)
+
+;; show Monday as first day in date picker
+(setq calendar-week-start-day 1)
+
+(use-package org
+  :bind (("C-c a" . org-agenda)))
 
 (set-face-attribute 'default nil
                     :font "JetBrainsMono NFM"
@@ -39,8 +53,8 @@
              ; '(font . "JetBrainsMono NFM"))
 ;              '(font . "DejaVu Sans Mono-18"))
 
-; (load-theme 'dracula t)
-(load-theme 'gruber-darker t)
+(load-theme 'dracula t)
+; (load-theme 'gruber-darker t)
 
 ;; Refresh contents if you haven't recently
 (unless package-archive-contents
@@ -54,10 +68,18 @@
   ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
   ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
  ; :init
-					;  (vertico-mode))
+;  (vertico-mode))
 (use-package savehist
   :init
   (savehist-mode))
+
+;; IDEA's Ctrl+w
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
+
+;; Type 1-2 chars to jump anywhere
+(use-package avy
+  :bind ("M-j" . avy-goto-char-timer))
 
 ;; Standard Ido setup
 (ido-mode 1)
