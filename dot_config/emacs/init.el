@@ -22,8 +22,10 @@
 (show-paren-mode 1) ; matching parenthesis
 
 ;; disable bell
-(setq visible-bell t)
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
 
+;; relative line no
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode +1)
 
@@ -89,6 +91,18 @@
 (require 'ido-completing-read+)
 (ido-ubiquitous-mode 1)
 
+;; company: better autocomplete
+(use-package company
+  :init (global-company-mode)
+  :config
+  (setq company-backends '((company-etags company-dabbrev-code)))
+;  (setq company-backends '(company-etags company-capf))
+  )
+;(add-hook 'prog-mode-hook (lambda ()
+;			    (add-hook 'after-init-hook 'global-company-mode)))
+
+
+
 (use-package rg
   :ensure t
   :config
@@ -98,8 +112,8 @@
 (require 'smex)
 (smex-initialize)
 ;; You must bind Smex to a key to actually use it!
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(keymap-global-set "M-x" 'smex)
+(keymap-global-set "M-X" 'smex-major-mode-commands)
 
 ;; Matching parenthesis
 (require 'paredit)
