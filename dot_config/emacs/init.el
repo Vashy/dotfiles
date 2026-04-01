@@ -91,6 +91,10 @@
 (require 'ido-completing-read+)
 (ido-ubiquitous-mode 1)
 
+(require 'ido-vertical-mode)
+(ido-vertical-mode 1)
+(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+
 ;; company: better autocomplete
 (use-package company
   :init (global-company-mode)
