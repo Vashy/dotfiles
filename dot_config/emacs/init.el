@@ -35,7 +35,9 @@
 (setq auto-save-file-name-transforms `((".*" "~/tmp/.emacs/" t)))
 (setq backup-directory-alist '((".*" . "~/tmp/.emacs/")))
 
+;; --------
 ;; org-mode
+;; --------
 
 ;; automatically set date time when setting DONE
 (setq org-log-done 'time)
@@ -46,6 +48,16 @@
 (use-package org
   :bind (("C-c a" . org-agenda)))
 
+(setq org-startup-indented t)
+;(org-bullets-mode 1)
+
+(add-hook 'org-mode-hook (lambda ()
+			    (org-bullets-mode 1)))
+
+
+;; -----
+;; fonts
+;; -----
 (set-face-attribute 'default nil
                     :font "JetBrainsMono NFM"
                     :height 160
@@ -81,7 +93,7 @@
 
 ;; Type 1-2 chars to jump anywhere
 (use-package avy
-  :bind ("M-j" . avy-goto-char-timer))
+  :bind ("M-s" . avy-goto-char-timer))
 
 ;; Standard Ido setup
 (ido-mode 1)
