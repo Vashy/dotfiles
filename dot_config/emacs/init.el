@@ -46,14 +46,19 @@
 (setq calendar-week-start-day 1)
 
 (use-package org
+  :init
+  (setq org-startup-indented t)
+;  :config
+;  (add-hook 'org-mode-hook (lambda ()
+;			     (org-bullets-mode 1)))
   :bind (("C-c a" . org-agenda)))
 
-(setq org-startup-indented t)
+ (use-package org-modern
+   :ensure t
+   :config
+   (global-org-modern-mode))
+
 ;(org-bullets-mode 1)
-
-(add-hook 'org-mode-hook (lambda ()
-			    (org-bullets-mode 1)))
-
 
 ;; -----
 ;; fonts
@@ -67,7 +72,16 @@
              ; '(font . "JetBrainsMono NFM"))
 ;              '(font . "DejaVu Sans Mono-18"))
 
-(load-theme 'dracula t)
+(use-package dracula-theme
+  :ensure t
+  :config
+  (load-theme 'dracula t))
+
+(use-package ef-themes
+  :ensure t)
+
+(use-package gruber-darker-theme
+  :ensure t)
 ; (load-theme 'gruber-darker t)
 
 ;; Refresh contents if you haven't recently
@@ -84,15 +98,18 @@
  ; :init
 ;  (vertico-mode))
 (use-package savehist
+  :ensure t
   :init
   (savehist-mode))
 
 ;; IDEA's Ctrl+w
 (use-package expand-region
+  :ensure t
   :bind ("C-=" . er/expand-region))
 
 ;; Type 1-2 chars to jump anywhere
 (use-package avy
+  :ensure t
   :bind ("M-s" . avy-goto-char-timer))
 
 ;; Standard Ido setup
@@ -100,16 +117,30 @@
 (ido-everywhere 1)
 
 ;; Make Ido work everywhere
-(require 'ido-completing-read+)
-(ido-ubiquitous-mode 1)
+(use-package ido-completing-read+
+  :ensure t
+  :config
+  (ido-ubiquitous-mode 1))
 
-(require 'ido-vertical-mode)
-(ido-vertical-mode 1)
-(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+(use-package ido-vertical-mode
+  :ensure t
+  :init
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+  :config
+  (ido-vertical-mode 1))
+
+(use-package ido-vertical-mode
+  :ensure t
+  :init
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+  :config
+  (ido-vertical-mode 1))
 
 ;; company: better autocomplete
 (use-package company
-  :init (global-company-mode)
+  :ensure t
+  :init
+  (global-company-mode)
   :config
   (setq company-backends '((company-etags company-dabbrev-code)))
 ;  (setq company-backends '(company-etags company-capf))
@@ -117,20 +148,37 @@
 ;(add-hook 'prog-mode-hook (lambda ()
 ;			    (add-hook 'after-init-hook 'global-company-mode)))
 
+;; ----------
+;; projectile
+;; ----------
 
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-project-search-path '("~/Documents/Obsidian" "~/Work/"))
+  :config
+  (define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
+  (global-set-key (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode +1))
 
 (use-package rg
   :ensure t
   :config
   (rg-enable-default-bindings))
 
-;; Setup Smex for M-x
-(require 'smex)
-(smex-initialize)
-;; You must bind Smex to a key to actually use it!
-(keymap-global-set "M-x" 'smex)
-(keymap-global-set "M-X" 'smex-major-mode-commands)
+(use-package smex
+  :ensure t
+  :bind (("M-x" . smex)
+	 ("M-X" . smex-major-mode-commands))
+  :config
+  (smex-initialize))
 
 ;; Matching parenthesis
-(require 'paredit)
-(paredit-mode 1)
+(use-package paredit
+  :ensure t
+  :config (paredit-mode 0))
