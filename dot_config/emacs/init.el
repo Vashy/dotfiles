@@ -35,19 +35,20 @@
 (setq auto-save-file-name-transforms `((".*" "~/tmp/.emacs/" t)))
 (setq backup-directory-alist '((".*" . "~/tmp/.emacs/")))
 
+;; Change window focus with Shift+arrow
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+
 ;; --------
 ;; org-mode
 ;; --------
 
-;; automatically set date time when setting DONE
-(setq org-log-done 'time)
-
-;; show Monday as first day in date picker
-(setq calendar-week-start-day 1)
-
 (use-package org
   :init
   (setq org-startup-indented t)
+  (setq org-log-done 'time)
+  ;; show Monday as first day in date picker
+  (setq calendar-week-start-day 1)
 ;  :config
 ;  (add-hook 'org-mode-hook (lambda ()
 ;			     (org-bullets-mode 1)))
@@ -182,3 +183,5 @@
 (use-package paredit
   :ensure t
   :config (paredit-mode 0))
+
+(setq c-basic-offset 4)
