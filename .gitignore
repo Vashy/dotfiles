@@ -1,0 +1,2 @@
+# lazy.nvim writes this at runtime (was in .chezmoiignore)
+home/.config/nvim/lazy-lock.json
