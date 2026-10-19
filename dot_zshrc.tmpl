@@ -228,3 +228,14 @@ eval "$(zoxide init zsh --cmd z)"
 
 # uncomment this and the first line to debug zsh startup time
 # zprof
+
+# pnpm
+export PNPM_HOME="/home/vashy/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+# Tmux bug
+unset COLUMNS LINES

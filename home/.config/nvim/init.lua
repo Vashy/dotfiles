@@ -841,12 +841,27 @@ require('lazy').setup({
         enabled = true,
         timeout = 3000,
       },
-      picker = { enabled = true },
+      picker = {
+        enabled = true,
+        sources = {
+          files = { hidden = true },
+        },
+      },
       quickfile = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = false },
       statuscolumn = { enabled = true },
       words = { enabled = true },
+      zen = {
+        win = {
+          backdrop = {
+            transparent = true, -- true = use a solid background color
+            blend = 12, -- 0 = fully opaque (no bleed-through)
+          },
+          -- You can also adjust the width of the Zen window here
+          -- width = 120,
+        },
+      },
       styles = {
         notification = {
           -- wo = { wrap = true } -- Wrap notifications
