@@ -62,8 +62,8 @@ vim.keymap.set('n', '<leader>l', '<cmd>copen<CR>')
 vim.keymap.set('n', '<C-w>-', '<C-w>s', { desc = 'Split horizontal', remap = false })
 vim.keymap.set('n', '<C-w>|', '<C-w>v', { desc = 'Split vertical', remap = false })
 
--- Handled by gx.lua
-vim.keymap.del({ 'n', 'x' }, 'gx')
+-- Handled by gx.lua (default mapping may be absent, e.g. in --headless)
+pcall(vim.keymap.del, { 'n', 'x' }, 'gx')
 
 -- Handled by todofloat.lua
 vim.keymap.set('n', '<leader>T', ':TdNotes<CR>', { desc = 'Open global Todo', silent = true })
