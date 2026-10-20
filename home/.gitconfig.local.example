@@ -1,0 +1,5 @@
+# Copy to ~/.gitconfig.local and fill in (included by ~/.gitconfig, not tracked):
+#   cp ~/.gitconfig.local.example ~/.gitconfig.local
+[user]
+	email = jane.doe@example.com
+	name = Jane Doe
