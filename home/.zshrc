@@ -83,15 +83,14 @@ plugins=(
     zoxide
     fzf-tab
 	# zsh-syntax-highlighting
-{{ if (not (contains  "WSL2" .chezmoi.kernel.osrelease)) }}
-	fast-syntax-highlighting
-{{ end }}
     direnv
 )
 
-{{ if contains  "WSL2" .chezmoi.kernel.osrelease }}
-export ENTR_INOTIFY_WORKAROUND=1
-{{ end }}
+if [[ $(uname -r) == *WSL2* ]]; then
+    export ENTR_INOTIFY_WORKAROUND=1
+else
+    plugins+=(fast-syntax-highlighting)
+fi
 
 # Load machine-local environment variables
 if [[ -f "$HOME/.zshrc_local" ]]; then
