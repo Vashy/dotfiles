@@ -467,10 +467,8 @@ require('lazy').setup({
       }
 
       -- LSP servers and clients are able to communicate to each other what features they support.
-      --  By default, Neovim doesn't support everything that is in the LSP specification.
-      --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
-      --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      --  blink.cmp broadcasts its extra completion capabilities to every server on its own,
+      --  via `vim.lsp.config('*', ...)` in its plugin/ file, so nothing to do here.
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -512,9 +510,21 @@ require('lazy').setup({
         zls = {},
         jsonls = {},
         lemminx = {},
-        jdtls = {
-          autostart = false,
+        -- Diffview's index buffers (`diffview:///repo/.git/:0:/file.md`) are editable, so
+        -- `vim.lsp.enable` attaches to them. Root detection on that name resolves to '.',
+        -- which becomes the URI 'file://.' and crashes marksman on startup.
+        -- Skip any buffer whose name is a URI rather than a real path.
+        marksman = {
+          root_dir = function(bufnr, on_dir)
+            if vim.api.nvim_buf_get_name(bufnr):match '^%a[%w+.-]*://' then
+              return
+            end
+            on_dir(vim.fs.root(bufnr, { '.marksman.toml', '.git' }))
+          end,
         },
+        -- Listed only so Mason installs it: excluded from automatic_enable below,
+        -- ftplugin/java.lua starts it through nvim-jdtls instead.
+        jdtls = {},
         --   settings = {
         --     java = {
         --       configuration = {
@@ -563,43 +573,16 @@ require('lazy').setup({
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      -- Diffview's index buffers (`diffview:///repo/.git/:0:/file.md`) are editable, so
-      -- `vim.lsp.enable` attaches to them. Root detection on that name resolves to '.',
-      -- which becomes the URI 'file://.' and crashes marksman on startup.
-      -- Skip any buffer whose name is a URI rather than a real path.
-      vim.lsp.config('marksman', {
-        root_dir = function(bufnr, on_dir)
-          if vim.api.nvim_buf_get_name(bufnr):match '^%a[%w+.-]*://' then
-            return
-          end
-          on_dir(vim.fs.root(bufnr, { '.marksman.toml', '.git' }))
-        end,
-      })
+      -- Merge the overrides above on top of nvim-lspconfig's defaults (its lsp/<name>.lua files).
+      -- mason-lspconfig then calls `vim.lsp.enable()` for every installed server.
+      for server_name, server in pairs(servers) do
+        vim.lsp.config(server_name, server)
+      end
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
         automatic_enable = {
           exclude = { 'jdtls' },
-        },
-        handlers = {
-          function(server_name)
-            -- if server_name == 'jdtls' then
-            --   return
-            -- end
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-
-          -- Tell Mason-LSPConfig to do nothing for jdtls
-          ['jdtls'] = function()
-            dd 'jdtls detected!'
-            return true
-          end,
         },
       }
     end,
