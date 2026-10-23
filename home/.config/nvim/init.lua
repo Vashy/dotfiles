@@ -563,6 +563,19 @@ require('lazy').setup({
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      -- Diffview's index buffers (`diffview:///repo/.git/:0:/file.md`) are editable, so
+      -- `vim.lsp.enable` attaches to them. Root detection on that name resolves to '.',
+      -- which becomes the URI 'file://.' and crashes marksman on startup.
+      -- Skip any buffer whose name is a URI rather than a real path.
+      vim.lsp.config('marksman', {
+        root_dir = function(bufnr, on_dir)
+          if vim.api.nvim_buf_get_name(bufnr):match '^%a[%w+.-]*://' then
+            return
+          end
+          on_dir(vim.fs.root(bufnr, { '.marksman.toml', '.git' }))
+        end,
+      })
+
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
