@@ -37,4 +37,8 @@ end
 
 config.audible_bell = "Disabled"
 
+-- Honor emoji presentation selectors (VS16) so e.g. ⚙️ is 2 cells wide,
+-- matching tmux and nvim; the default (9) draws it 1 wide and misaligns TUIs
+config.unicode_version = 14
+
 return config
