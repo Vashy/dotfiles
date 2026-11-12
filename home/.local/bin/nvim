@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+# nvim 0.12 runs as its own app (plugins, parsers, state, lazy lockfile) so it
+# doesn't clash with `vim` (0.11, default app name) on the shared config.
+# ~/.config/nvim-next links to ~/.config/nvim.
+NVIM_APPNAME="${NVIM_APPNAME:-nvim-next}" exec /usr/local/bin/nvim "$@"

@@ -1390,6 +1390,8 @@ require('lazy').setup({
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
+  -- `nvim` runs this config as NVIM_APPNAME=nvim-next with its own plugins: keep its lockfile apart
+  lockfile = vim.fn.stdpath 'config' .. ((vim.env.NVIM_APPNAME or 'nvim') == 'nvim' and '/lazy-lock.json' or ('/lazy-lock.' .. vim.env.NVIM_APPNAME .. '.json')),
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
@@ -1416,7 +1418,8 @@ require('lazy').setup({
 --===============--
 
 require('localplugins.todofloat').setup {
-  target_file = vim.fn.stdpath 'data' .. '/todo.md',
+  -- not stdpath: shared with `nvim` (NVIM_APPNAME=nvim-next), whose data dir differs
+  target_file = (vim.env.XDG_DATA_HOME or vim.env.HOME .. '/.local/share') .. '/nvim/todo.md',
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
